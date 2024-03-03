@@ -1,0 +1,68 @@
+ARG ALPINE_VERSION=latest
+
+# │ STAGE: CONTAINER
+# ╰――――――――――――――――――――――――――――――――――――――――――――――――――――――
+FROM docker.io/gautada/alpine:$ALPINE_VERSION as CONTAINER
+
+# ╭―
+# │ METADATA           
+# ╰――――――――――――――――――――
+LABEL source="https://github.com/gautada/semaphore-container.git"
+LABEL maintainer="Adam Gautier <adam@gautier.org>"
+LABEL description="A container for a semaphore server"
+
+# ╭―
+# │ USER
+# ╰――――――――――――――――――――
+ARG USER=semaphore
+RUN /usr/sbin/usermod -l $USER alpine
+RUN /usr/sbin/usermod -d /home/$USER -m $USER
+RUN /usr/sbin/groupmod -n $USER alpine
+RUN /bin/echo "$USER:$USER" | /usr/sbin/chpasswd
+
+# ╭―
+# │ PRIVILEGES
+# ╰――――――――――――――――――――
+# COPY privileges /etc/container/privileges
+
+# ╭―
+# │ BACKUP
+# ╰――――――――――――――――――――
+# COPY backup /etc/container/backup
+
+
+# ╭―
+# │ ENTRYPOINT
+# ╰――――――――――――――――――――
+COPY entrypoint /etc/container/entrypoint
+
+# ╭―
+# │ APPLICATION
+# ╰――――――――――――――――――――
+ARG CONTAINER_VERSION="2.9.45"
+ARG SEMAPHORE_VERSION="$CONTAINER_VERSION"
+ARG SEMAPHORE_BRANCH=v"$SEMAPHORE_VERSION"
+
+RUN /sbin/apk add --no-cache go ansible openssh-client-default
+
+RUN git config --global advice.detachedHead false
+RUN git clone --branch $SEMAPHORE_BRANCH --depth 1 https://github.com/ansible-semaphore/semaphore.git
+
+# curl -sL https://taskfile.dev/install.sh | sh
+# ./bin/task -t Taskfile.yml deps
+
+
+
+# ╭―
+# │ CONFIGURATION
+# ╰――――――――――――――――――――
+RUN chown -R $USER:$USER /home/$USER
+# USER $USER
+VOLUME /mnt/volumes/backup
+VOLUME /mnt/volumes/configmaps
+VOLUME /mnt/volumes/container
+VOLUME /mnt/volumes/secrets
+VOLUME /mnt/volumes/logs
+VOLUME /mnt/volumes/source
+EXPOSE 8080/tcp
+WORKDIR /home/$USER
