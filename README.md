@@ -1,5 +1,6 @@
 # semaphore
 
+FF
 [Semaphor](https://semui.co) is a web ui for
 [Ansible](https://www.redhat.com/en/ansible-collaborative)
 
