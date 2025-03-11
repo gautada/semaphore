@@ -8,12 +8,12 @@ ARG IMAGE_VERSION="2.12.17"
 
 RUN /sbin/apk add --no-cache ansible go go-task npm openssh-client-default
 WORKDIR /opt
-RUN git config --global advice.detachedHead false
-RUN git clone --branch "v${IMAGE_VERSION}" --depth 1 https://github.com/ansible-semaphore/semaphore.git
+RUN git config --global advice.detachedHead false \
+ && git clone --branch "v${IMAGE_VERSION}" --depth 1 https://github.com/ansible-semaphore/semaphore.git
 WORKDIR /opt/semaphore
-RUN git config --global --add safe.directory /opt/semaphore
-RUN /usr/bin/go-task deps
-RUN /usr/bin/go-task build
+RUN git config --global --add safe.directory /opt/semaphore \
+ && /usr/bin/go-task deps \
+ && /usr/bin/go-task build
 
 FROM docker.io/gautada/alpine:$ALPINE_VERSION as container
 
