@@ -22,7 +22,7 @@ FROM docker.io/gautada/alpine:$ALPINE_VERSION as container
 # ╰――――――――――――――――――――╯
 ARG USER=semaphore
 # Set shell to /bin/ash and enable pipefail for Alpine-based images
-SHELL ["/bin/ash", "-o", "pipefail", "-c"]
+# SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 RUN /usr/sbin/usermod -l $USER alpine \
  && /usr/sbin/usermod -d /home/$USER -m $USER \
  && /usr/sbin/groupmod -n $USER alpine \
