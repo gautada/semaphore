@@ -9,3 +9,4 @@ volumes
 .arg
 manifest
 config.json
+ansible-control-repo

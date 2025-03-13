@@ -69,7 +69,7 @@ RUN /bin/ln -fsv /opt/semaphore/semaphore /usr/bin/semaphore \
 # │ CONFIGURATION
 # ╰――――――――――――――――――――
 RUN chown -R $USER:$USER /home/$USER
-# USER $USER
+USER $USER
 VOLUME /mnt/volumes/backup
 VOLUME /mnt/volumes/configmaps
 VOLUME /mnt/volumes/container
