@@ -62,7 +62,8 @@ COPY entrypoint /etc/container/entrypoint
 COPY --from=build /opt/semaphore/bin/semaphore /opt/semaphore/semaphore
 RUN /bin/ln -fsv /opt/semaphore/semaphore /usr/bin/semaphore \
  && /bin/ln -fsv /mnt/volumes/configmaps/config.json /home/$USER/config.json \
- && /bin/ln -fsv /mnt/volumes/container /home/$USER/data
+ && mkdir -p /home/$USER/data 
+# /bin/ln -fsv /mnt/volumes/container /home/$USER/data
 
 # ╭―
 # │ CONFIGURATION
