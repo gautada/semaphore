@@ -11,6 +11,6 @@ container_version() {
 }
 
 container_entrypoint() {
- tail -f /dev/null
- # /opt/semaphore/semaphore server --config /home/semaphore/config.json
+ # tail -f /dev/null
+ /opt/semaphore/semaphore server --config /home/semaphore/config.json
 }
