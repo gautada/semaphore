@@ -59,6 +59,8 @@ COPY entrypoint /etc/container/entrypoint
 # RUN chown -R $USER:$USER /opt/semaphore
 # curl -sL https://taskfile.dev/install.sh | sh
 # ./bin/task -t Taskfile.yml deps
+RUN /bin/sed -i 's|dl-cdn.alpinelinux.org/alpine/|mirror.math.princeton.edu/pub/alpinelinux/|g' /etc/apk/repositories \
+ && /sbin/apk add --no-cache ansible openssh
 COPY --from=build /opt/semaphore/bin/semaphore /opt/semaphore/semaphore
 RUN /bin/ln -fsv /opt/semaphore/semaphore /usr/bin/semaphore \
  && /bin/ln -fsv /mnt/volumes/configmaps/config.json /home/$USER/config.json \
