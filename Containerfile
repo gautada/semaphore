@@ -51,7 +51,7 @@ LABEL org.opencontainers.image.license="Upstream"
 # ╭―
 # │ ENTRYPOINT
 # ╰――――――――――――――――――――
-COPY entrypoint /etc/container/entrypoint
+COPY entrypoint.sh /etc/container/entrypoint
 
 # ╭―
 # │ APPLICATION
