@@ -9,3 +9,4 @@
 ## Notes
 
 - SEMAPHORE_PORT as an environment variable is used to set the port.
+- Added the `.arg` file.
