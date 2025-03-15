@@ -6,6 +6,7 @@ volumes
 *~
 .DS_Store
 .env
-.arg
+# .arg
 manifest
 config.json
+ansible-control-repo

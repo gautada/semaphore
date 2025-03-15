@@ -1,4 +1,4 @@
-#!/bin/ash
+#!/bin/sh
 #
 # entrypoint: Located at `/etc/container/entrypoint` this script is the custom
 #             entry for a container as called by `/usr/bin/container-entrypoint` set
@@ -11,5 +11,6 @@ container_version() {
 }
 
 container_entrypoint() {
+ # tail -f /dev/null
  /opt/semaphore/semaphore server --config /home/semaphore/config.json
 }
